@@ -1,5 +1,5 @@
 God-s-of-gods/
-├── package.json   ← THIS needs to be at the root
+├── package.json
 ├── pages/
 ├── public/
 ├── ...
