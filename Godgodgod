@@ -1,4 +1,21 @@
-God-s-of-gods/
+/package.json npm init -y
+/godnpe-ai-frontend/
+│
+├── package.json
+├── astro.config.mjs (if using Astro)
+├── vercel.json (if deploying to Vercel)
+├── public/
+│
+├── src/
+│   ├── pages/
+│   │   └── api/
+│   │       └── zionkore19_ai_contract.py  # Python route using API bridge or python shell
+│   ├── components/
+│   └── utils/
+│       └── zionkore19_ai_contract.py
+│
+└── zionkore19_ai_contract.py (fallback file as example/demo)
+God-s-of-gods/ 
 ├── package.json
 ├── pages/
 ├── public/
