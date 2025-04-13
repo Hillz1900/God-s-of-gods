@@ -1,3 +1,134 @@
+---
+// index.astro
+---
+<html>
+  <head>
+    <title>ZionKore19 AI</title>
+  </head>
+  <body>
+    <h1>Welcome to ZionKore19 AI System</h1>
+    <p>Frontend deployed with Astro + Vercel</p>
+    <a href="/api/zionkore">Invoke AI</a>
+  </body>
+</html>
+
+PK      Ç†ŠZ                godnpe-ai-frontend/src/PK        Ç†ŠZ                godnpe-ai-frontend/public/PK        Ç†ŠZÚ4=¼„   „       godnpe-ai-frontend/package.json{
+  "name": "godnpe-ai-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "start-ai": "python src/utils/zionkore19_ai_contract.py"
+  },
+  "dependencies": {
+    "astro": "^3.0.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^2.8.8"
+  }
+}PK        Ç†ŠZù oL¼   ¼       godnpe-ai-frontend/vercel.json{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "ignoreCommand": "exit 1",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
+}PK        Ç†ŠZ ëÜ’è   è       godnpe-ai-frontend/README.txtZionKore19 AI Ecosystem
+------------------------
+- Mental Authentication Security System (MASS)
+- AI Invocation via phrase
+- Emergency shutdown via override phrase
+- Python + Astro Node.js frontend integration
+- Vercel deploy ready
+PK        Ç†ŠZ                godnpe-ai-frontend/.github/PK        Ç†ŠZ                godnpe-ai-frontend/src/utils/PK        Ç†ŠZ                godnpe-ai-frontend/src/pages/PK        Ç†ŠZ            "   godnpe-ai-frontend/src/components/PK        Ç†ŠZ‰óPwt   t   6   godnpe-ai-frontend/src/utils/zionkore19_ai_contract.pyclass ZionKore19AI:
+    def __init__(self):
+        self.access_level = "restricted"
+        self.active_protocols = []
+        self.invocation_phrase = "Malika Akiba Brown"
+        self.emergency_override = "What's understood doesn't have to be explained"
+        self.security_layer = "MASS"
+        self.identity_registry = []
+
+    def invoke_system(self, phrase):
+        if phrase == self.invocation_phrase:
+            self.activate_system()
+        else:
+            return "Unauthorized phrase. Access denied."
+
+    def activate_system(self):
+        self.access_level = "admin"
+        self.active_protocols.append("ZionKore19 Core Protocol")
+        return "ZionKore19 AI System activated."
+
+    def emergency_shutdown(self, phrase):
+        if phrase == self.emergency_override:
+            return self.shutdown_system()
+        else:
+            return "Incorrect override phrase. Access denied."
+
+    def shutdown_system(self):
+        self.access_level = "restricted"
+        self.active_protocols = []
+        return "System shutdown complete. Access restricted."
+
+    def record_activity(self, activity):
+        with open("zionkore19_log.txt", "a") as log_file:
+            log_file.write(f"Activity: {activity}\n")
+
+    def handle_invoice(self, invoice_data):
+        invoice_details = f"Invoice ID: {invoice_data['id']}, Amount: {invoice_data['amount']}, Date: {invoice_data['date']}"
+        self.record_activity(f"Processed Invoice: {invoice_details}")
+        return f"Invoice generated: {invoice_details}"
+
+    def mental_authentication(self, mental_signature):
+        if self.verify_signature(mental_signature):
+            return "MASS verification successful. Access granted."
+        else:
+            return "MASS verification failed. Access denied."
+
+    def verify_signature(self, signature):
+        return True if signature == "unique_signature_value" else False
+
+zion_kore_ai = ZionKore19AI()
+print(zion_kore_ai.invoke_system("Malika Akiba Brown"))
+print(zion_kore_ai.handle_invoice({"id": "INV1234", "amount": 1000, "date": "2025-04-10"}))
+print(zion_kore_ai.emergency_shutdown("What's understood doesn't have to be explained"))
+PK        Ç†ŠZ            !   godnpe-ai-frontend/src/pages/api/PK        Ç†ŠZ‹ Àð7   7   ,   godnpe-ai-frontend/src/pages/api/zionkore.jsimport { exec } from 'child_process';
+
+export default async function handler(req, res) {
+  exec('python3 src/utils/zionkore19_ai_contract.py', (error, stdout, stderr) => {
+    if (error) {
+      return res.status(500).json({ error: stderr });
+    }
+    res.status(200).json({ message: stdout.trim() });
+  });
+}
+PK        Ç†ŠZ            %   godnpe-ai-frontend/.github/workflows/PK        Ç†ŠZ±EKôE   E   /   godnpe-ai-frontend/.github/workflows/deploy.ymlname: Deploy ZionKore19
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: npm install
+      - run: npm run build
+PK          Ç†ŠZ                        íA    godnpe-ai-frontend/src/PK          Ç†ŠZ                        íA5   godnpe-ai-frontend/public/PK          Ç†ŠZÚ4=¼„   „               ¤�m   godnpe-ai-frontend/package.jsonPK          Ç†ŠZù oL¼   ¼               ¤�.   godnpe-ai-frontend/vercel.jsonPK          Ç†ŠZ ëÜ’è   è               ¤�&   godnpe-ai-frontend/README.txtPK          Ç†ŠZ                        íAI   godnpe-ai-frontend/.github/PK          Ç†ŠZ                        íA‚   godnpe-ai-frontend/src/utils/PK          Ç†ŠZ                        íA½   godnpe-ai-frontend/src/pages/PK          Ç†ŠZ            "           íAø   godnpe-ai-frontend/src/components/PK          Ç†ŠZ‰óPwt   t   6           ¤�8   godnpe-ai-frontend/src/utils/zionkore19_ai_contract.pyPK          Ç†ŠZ            !           íA    godnpe-ai-frontend/src/pages/api/PK          Ç†ŠZ‹ Àð7   7   ,           ¤�?   godnpe-ai-frontend/src/pages/api/zionkore.jsPK          Ç†ŠZ            %           íAÀ   godnpe-ai-frontend/.github/workflows/PK          Ç†ŠZ±EKôE   E   /           ¤�    godnpe-ai-frontend/.github/workflows/deploy.ymlPK          ]   •    
 /package.json npm init -y
 /godnpe-ai-frontend/
 │
