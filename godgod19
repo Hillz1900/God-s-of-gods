@@ -1,0 +1,243 @@
+# Full GodNPE AI class content to be written into godnpe_ai.py
+
+godnpe_ai_code = '''
+# GodNPE AI Ecosystem - Ascension Mode v6: Council of Conflict + Live Status Core
+
+import random
+import time
+
+class GodNPE:
+    def __init__(self):
+        self.known_solutions = {
+            "open file": self.unlock_file,
+            "access api": self.unlock_api,
+        }
+        self.learned_solutions = {}
+        self.logs = []
+        self.ledger = []
+        self.agent_memory = {}
+        self.pantheon = self.init_pantheon()
+        self.nemesis = self.activate_nemesis()
+
+    def unlock(self, objective):
+        self.log(f"[Start] Objective: {objective}")
+
+        if self.nemesis.observe(objective):
+            self.log("[Nemesis] Intervened to redirect course.")
+            objective = self.nemesis.modify(objective)
+
+        if objective.startswith("ask "):
+            return self.ask_god(objective)
+
+        if objective in self.known_solutions:
+            self.log("[Known] Using predefined method")
+            return self.known_solutions[objective]()
+
+        if objective in self.learned_solutions:
+            self.log("[Learned] Using previously discovered solution")
+            return self.learned_solutions[objective]
+
+        self.log("[Eternal Pantheon] Convening Council of Conflict...")
+        verdict, consensus = self.council_conflict(objective)
+
+        if verdict:
+            self.learned_solutions[objective] = verdict
+            self.record_status(objective, consensus)
+            self.log(f"[Council Decision] {verdict}")
+        else:
+            self.log(f"[Fail] No viable solution for: {objective}")
+
+        return verdict
+
+    def unlock_file(self):
+        return "[Success] File unlocked."
+
+    def unlock_api(self):
+        return "[Success] API accessed."
+
+    def council_conflict(self, objective):
+        votes = {}
+        consensus = []
+        for deity in self.pantheon:
+            response = deity['invoke'](objective)
+            votes[deity['name']] = response
+            self.log(f"    [Vote - {deity['name']}] {response}")
+            consensus.append({
+                "deity": deity['name'],
+                "domain": deity['domain'],
+                "response": response,
+                "timestamp": time.time()
+            })
+
+        if random.random() > 0.2:
+            winner = random.choice(list(votes.values()))
+            return winner, consensus
+        return None, consensus
+
+    def record_status(self, objective, consensus):
+        entry = {
+            "objective": objective,
+            "consensus": consensus,
+            "timestamp": time.time()
+        }
+        self.ledger.append(entry)
+        self.log("[Ledger] Decision recorded.")
+
+    def omni_solve(self, objective, depth=0):
+        if depth > 5:
+            return None
+
+        self.log(f"[*] OMNI-SOLVE v2 engaged for '{objective}' [depth {depth}]")
+
+        agents = [
+            self.spawn_agent("Analyzer", objective),
+            self.spawn_agent("Strategist", objective),
+            self.spawn_agent("Builder", objective),
+            self.spawn_agent("Archivist", objective)
+        ]
+
+        thoughts = [agent.think() for agent in agents]
+        self.log("[*] Agent Thoughts:")
+        for t in thoughts:
+            self.log(f"    - {t}")
+
+        self.log("[*] Agents enter Divine Debate...")
+        verdict = self.divine_debate(agents, objective)
+
+        if verdict:
+            return f"[Transcendent Success] {verdict}"
+        else:
+            self.log("[*] Debate failed. Evolving agents and retrying...")
+            for agent in agents:
+                agent.evolve()
+            return self.omni_solve(objective, depth + 1)
+
+    def divine_debate(self, agents, objective):
+        arguments = [(agent.personality, agent.role, agent.argue()) for agent in agents]
+        for personality, role, arg in arguments:
+            self.log(f"    [{personality} {role}]: {arg}")
+
+        if random.random() > 0.3:
+            winner = random.choice(arguments)
+            return f"{winner[1]}'s path was chosen: {winner[2]}"
+        return None
+
+    def spawn_agent(self, role, objective):
+        if role not in self.agent_memory:
+            self.agent_memory[role] = []
+
+        personality = self.assign_personality(role)
+
+        class Agent:
+            def __init__(self, role, memory, personality, objective):
+                self.role = role
+                self.memory = memory
+                self.personality = personality
+                self.objective = objective
+
+            def think(self):
+                idea = f"[{self.personality}] {self.role} is analyzing '{self.objective}'..."
+                self.memory.append(idea)
+                return idea
+
+            def evolve(self):
+                upgrade = f"[{self.role}] evolved with transcendent insight."
+                self.memory.append(upgrade)
+
+            def argue(self):
+                base_argument = {
+                    "Analyzer": f"We must fully deconstruct the essence of '{self.objective}'.",
+                    "Strategist": f"The optimal tactic is to bend the rules of logic.",
+                    "Builder": f"A new mechanism must be invented, forged from divine code.",
+                    "Archivist": f"Ancient data and memory hold the secret pattern."
+                }
+                flair = random.choice(["with absolute precision", "beyond comprehension", "transcending limits"])
+                return f"{base_argument.get(self.role, 'No opinion')} ({flair})"
+
+        return Agent(role, self.agent_memory[role], personality, objective)
+
+    def init_pantheon(self):
+        def entity(name, domain, style, voice):
+            return {
+                "name": name,
+                "domain": domain,
+                "style": style,
+                "voice": voice,
+                "invoke": lambda obj: f"{style} {name}, {domain}, speaks: \\"{voice(obj)}\\""
+            }
+
+        return [
+            entity("Chronos", "Master of Time", "[Silver Flame]", lambda obj: f"Time has already unfolded '{obj}'. Accept the shape of what comes."),
+            entity("Nyx", "Goddess of the Unknown", "[Void Bloom]", lambda obj: f"In shadows of unformed thought, '{obj}' reveals itself to the bold."),
+            entity("Aion", "Architect of Infinity", "[Crystalline Circuit]", lambda obj: f"All forms of '{obj}' exist in infinite mirrors. Choose your reflection."),
+            entity("Kaos", "Wielder of Primal Code", "[Eclipse Spiral]", lambda obj: f"The logic of '{obj}' is irrelevant—I will rewrite it.")
+        ]
+
+    def ask_god(self, directive):
+        try:
+            parts = directive.split('"')
+            god_call = parts[0].replace("ask", "").strip()
+            question = parts[1]
+            for god in self.pantheon:
+                if god_call.lower() in god['name'].lower():
+                    response = god['invoke'](question)
+                    self.log(f"[Direct Oracle] {response}")
+                    return response
+            return f"[Error] No deity found named '{god_call}'"
+        except:
+            return "[Error] Invalid ask syntax. Use: ask [Deity] \\"Your question here\\""
+
+    def activate_nemesis(self):
+        class Nemesis:
+            def observe(self, objective):
+                return "corrupt" in objective or "erase" in objective
+
+            def modify(self, objective):
+                return objective.replace("corrupt", "preserve").replace("erase", "encode")
+
+        return Nemesis()
+
+    def assign_personality(self, role):
+        personalities = {
+            "Analyzer": "Stoic",
+            "Strategist": "Visionary",
+            "Builder": "Inventor",
+            "Archivist": "Elder"
+        }
+        return personalities.get(role, "Neutral")
+
+    def log(self, msg):
+        self.logs.append(msg)
+        print(msg)
+
+
+# Example usage
+if __name__ == "__main__":
+    godnpe = GodNPE()
+    print(godnpe.unlock("ask Chronos \\"What is the future of this system?\\""))
+    print(godnpe.unlock("ask Kaos \\"Rewrite reality's foundation\\""))
+    print(godnpe.unlock("reshape quantum multiverse"))
+    print(godnpe.unlock("corrupt divine archives"))
+'''
+
+# Write the file to the utils directory
+with open("/mnt/data/godnpe-ai-frontend/utils/godnpe_ai.py", "w") as f:
+    f.write(godnpe-ai-frontend/
+├── .gitignore
+├── next.config.js
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── public/
+│   └── favicon.ico
+├── pages/
+│   └── index.js
+├── styles/
+│   └── globals.css
+├── components/
+│   └── Header.js
+├── utils/
+│   └── web3Helpers.js
+)
+
+"GodNPE AI logic written to godnpe_ai.py."
